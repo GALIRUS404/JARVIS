@@ -1,0 +1,15 @@
+#!/data/data/com.termux/files/usr/bin/bash
+if pgrep -f $HOME/JARVIS/notif.py > /dev/null; then
+    play -q $HOME/JARVIS/sound/salah.mp3 &>/dev/null
+play -q $HOME/JARVIS/sound/commandfalid.mp3 &>/dev/null &
+    echo "Script sedang berjalan, tidak perlu dijalankan ulang."
+    sleep 5
+ clear
+else
+	play -q $HOME/JARVIS/sound/oke.mp3 &>/dev/null
+        play -q $HOME/JARVIS/sound/robot2.mp3 &>/dev/null
+    echo "Script tidak sedang berjalan, menjalankan script..."
+    sleep 5
+    python $HOME/JARVIS/notif.py &>/dev/null &
+	clear
+fi

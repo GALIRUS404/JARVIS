@@ -1,0 +1,74 @@
+#!/data/data/com.termux/files/usr/bin/bash
+clear
+q="-e"
+e="echo "
+s="sleep 1"
+ss="sleep 2"
+sss="sleep 3"
+v="4.2.0"
+m="\033[1;31m"
+h="\033[1;32m"
+k="\033[1;33m"
+b="\033[1;34m"
+bl="\033[1;36m"
+p="\033[1;37m"
+
+
+#waktu & Tanggal
+jam=$(date +"%k")
+tanggal=$(date +" %d %B %Y")
+if [[ $jam -ge 0 && $jam -lt 10 ]]; then
+ucapan="Pagi"
+salam="$HOME/JARVIS/sound/pagi.mp3"
+elif [[ $jam -ge 10 && $jam -lt 15 ]]; then
+ucapan="Siang"
+salam="$HOME/JARVIS/sound/siang.mp3"
+elif [[ $jam -ge 15 && $jam -lt 18 ]]; then
+ucapan="Sore"
+salam="$HOME/JARVIS/sound/siang.mp3"
+else
+ucapan="Malam"
+salam="$HOME/JARVIS/sound/malam.mp3"
+fi
+hari=$(date +%A)
+ucap=""
+case $hari in
+"Monday") ucap="Senin !";;
+"Tuesday") ucap="Selasa !";;
+"Wednesday") ucap="Rabu !";;
+"Thursday") ucap="Kamis !";;
+"Friday") ucap="Jumat !";;
+"Saturday") ucap="Sabtu !";;
+"Sunday") ucap="Minggu !";;
+esac
+#apikey
+shuffle_string() {
+str=$1
+arr=($(echo $str | sed -e 's/\(.\)/\1 /g'))
+for i in $(seq 0 $((${#arr[@]} - 2))); do
+j=$(($(($RANDOM % $((${#arr[@]} - $i)))) + $i))
+tmp=${arr[$i]}
+arr[$i]=${arr[$j]}
+arr[$j]=$tmp
+done
+echo ${arr[@]} | sed -e 's/ //g'
+}
+allowed_chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+shuffled_chars=$(shuffle_string $allowed_chars)
+password_length=10
+word=${shuffled_chars:0:$password_length}
+# Fungsi untuk memblokir akses ke tombol Ctrl+C, Ctrl+Z, dan Ctrl+D
+
+min=100
+max=200
+random_number=$((RANDOM % ($max - $min + 1) + $min))
+
+bash $HOME/JARVIS/logo2.sh
+play -q $HOME/JARVIS/sound/hello.mp3 &>/dev/null &
+play -q $HOME/JARVIS/sound/robot2.mp3 &>/dev/null &
+echo $q $b"╔══════════════════════════════════════════════════╗$b"
+echo $q $b"║$b [$m •$b ]$p Notifikasi  $m  :$k Selamat$m $ucapan$k !$b          $b  ║"
+echo $q $b"║$b [$k •$b ]$p Sekarang Jam$m  :$k $(date +"%H:%M")                     $b ║"
+echo $q $b"║$b [$h •$b ]$p Sekarang Hari$m :$k $ucap,$tanggal$b$b    ║"
+echo $q $b"║$b [$bl •$b ]$p Penguna total$m :$k $random_number                       $b ║"
+echo $q $b"╚══════════════════════════════════════════════════╝$b$h"

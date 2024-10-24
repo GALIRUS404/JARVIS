@@ -1,0 +1,11 @@
+#!/data/data/com.termux/files/usr/bin/bash
+if pgrep -f $HOME/JARVIS/musik.py > /dev/null; then
+    echo "Script sedang berjalan, tidak perlu dijalankan ulang."
+    sleep 5
+ clear
+else
+    echo "Script tidak sedang berjalan, menjalankan script..."
+    sleep 5
+    python $HOME/JARVIS/musik.py &>/dev/null &
+	clear
+fi

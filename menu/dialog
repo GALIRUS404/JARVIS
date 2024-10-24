@@ -1,0 +1,10 @@
+#!/data/data/com.termux/files/usr/bin/bash
+if pgrep -f $HOME/JARVIS/dialog.py > /dev/null; then
+    play -q $HOME/JARVIS/sound/salah.mp3 &>/dev/null
+play -q $HOME/JARVIS/sound/commandfalid.mp3 &>/dev/null &
+    echo "Script sedang berjalan, tidak perlu dijalankan ulang."
+else
+    echo "Script tidak sedang berjalan, menjalankan script..."
+    python $HOME/JARVIS/dialog.py &>/dev/null &
+	clear
+fi
